@@ -1,15 +1,14 @@
   .text
-noarg:
-  push $0x79                    # place y\0 on stack
-  push %rsp                     # push then pop is 2 bytes, while movq is 3
-  pop %rsi
-  jmp lenloop                   # Proceed to length calcs
 
   .globl _start
 _start:
   pop %rcx                      # argc
-  cmpq $2, %rcx
-  jb noarg                      # If we have less than 2 args, get 'y' string
+  loop arg                      # argc == 1 will cause no jump
+noarg:
+  push $0x79                    # place y\0 on stack
+  push %rsp                     # push then pop is 2 bytes, while movq is 3
+  push %rsp                     # garbage to be discarded
+arg:
   pop %rsi                      # Discard Program Name
   pop %rsi                      # Get First Argument
 lenloop:
