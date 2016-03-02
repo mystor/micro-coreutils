@@ -1,0 +1,15 @@
+This is a code-golfed implementation of the unix `yes` utility written in x86-64
+assembly for linux. The goal was to create an implementation of `yes` which
+would be a complete ELF executable, and the smallest size possible.
+
+The executable `yes` was created by assembling and linking with `as`/`ld`. The
+file then had symbols removed with `strip`, to make it as small as possible. It
+is 384 bytes in size, (the hex dump can be found in `yes.hex`). This file
+however still contained unnecessary ELF section headers, which are unnecessary
+for program execution, so I removed them manually, creating `uyes`, which is
+only 174 bytes in size. The changes made can be found in `yes_uyes.diff`.
+
+In contrast, the `yes` executable found on my system is 27K in size, according
+to `ls -lah $(which yes)`.
+
+The code-golfed assembly is commented and can be found in `yes.S`.
