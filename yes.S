@@ -1,6 +1,6 @@
   .text
 noarg:
-  movw $0x79, (%rsp)            # clobber first prog arg with 'y\0'
+  push $0x79                    # place y\0 on stack
   push %rsp                     # push then pop is 2 bytes, while movq is 3
   pop %rsi
   jmp lenloop                   # Proceed to length calcs
@@ -26,6 +26,10 @@ printloop:
   subl %edx, %eax               # Reset eax to 0, and check for failure
   je printloop                  # on failure continue, else loop
 
-  movl $60, %eax                # Exit the program with status 130
-  movl $130, %edi
+  # Exit program with status 130
+  push $60                      # Push/pop is 3 bytes instead of 5
+  pop %rax
+  push $0xffffffffffffff82      # Don't care about upper bytes,
+                                # so set them to 1 to get 2 byte push imm
+  pop %rdi
   syscall
