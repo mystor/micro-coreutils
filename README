@@ -7,7 +7,7 @@ file then had symbols removed with `strip`, to make it as small as possible. It
 is 384 bytes in size, (the hex dump can be found in `yes.hex`). This file
 however still contained unnecessary ELF section headers, which are unnecessary
 for program execution, so I removed them manually, creating `uyes`, which is
-only 174 bytes in size. The changes made can be found in `yes_uyes.diff`.
+only 172 bytes in size. The changes made can be found in `yes_uyes.diff`.
 
 In contrast, the `yes` executable found on my system is 27K in size, according
 to `ls -lah $(which yes)`.

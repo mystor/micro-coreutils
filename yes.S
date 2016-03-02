@@ -1,7 +1,8 @@
   .text
 noarg:
   movw $0x79, (%rsp)            # clobber first prog arg with 'y\0'
-  movq %rsp, %rsi               # %rsi points to 'y\0'
+  push %rsp                     # push then pop is 2 bytes, while movq is 3
+  pop %rsi
   jmp lenloop                   # Proceed to length calcs
 
   .globl _start
@@ -13,7 +14,7 @@ _start:
   pop %rsi                      # Get First Argument
 lenloop:
   incl %edx                     # Starts at 0 at prog start
-  cmpb $0, -1(%rsi,%rdx,1)      # Check for end of string
+  cmpb %al, -1(%rsi,%rdx,1)     # Check for end of string (al is 0)
   jne lenloop
   movb $10, -1(%rsi,%rdx,1)     # Set the 0 to a newline (ASCII 10)
 printloop:
