@@ -1,15 +1,28 @@
-This is a code-golfed implementation of the unix `yes` utility written in x86-64
-assembly for linux. The goal was to create an implementation of `yes` which
-would be a complete ELF executable, and the smallest size possible.
+These are minimal implementations of the unix utilities `yes`, `cat` and `echo`,
+written in x86-64 assembly for linux. The goal was to create an implementation
+which would consume the smallest number of bytes possible as a complete ELF
+executable.
 
-The executable `yes` was created by assembling and linking with `as`/`ld`. The
-file then had symbols removed with `strip`, to make it as small as possible. It
-is 384 bytes in size, (the hex dump can be found in `yes.hex`). This file
-however still contained unnecessary ELF section headers, which are unnecessary
-for program execution, so I removed them manually, creating `uyes`, which is
-only 172 bytes in size. The changes made can be found in `yes_uyes.diff`.
+The micro program is a sloppily created program which will remove the section
+headers from the program in order to save on the space which they would have
+consumed, and allows for the programs to be as small as possible, containing
+only the machine code, the ELF header, and a single program segment header.
+It's also super hacky, and will probably not work well for you. 
 
-In contrast, the `yes` executable found on my system is 27K in size, according
-to `ls -lah $(which yes)`.
+To build, run `make`. All of the utilities which you should need are probably
+already installed on your machine.
 
-The code-golfed assembly is commented and can be found in `yes.S`.
+The following are the current sizes of the programs as provided by the systems
+and as implemented here, in bytes.
+
++------+-----+-------+
+| prog | sys | micro |
++------+-----+-------+
+| echo | 31K |  167  |
+| cat  | 51K |  167  |
+| yes  | 27K |  158  |
++------+-----+-------+
+
+NOTE: These programs are not identical to the programs provided by the system,
+especially in their error handling/reporting capabilities. However, they do
+perform the primary purpose of the program correctly.
