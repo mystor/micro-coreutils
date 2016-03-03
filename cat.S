@@ -13,8 +13,8 @@ loop:
   pop %rax
   syscall # syscall OPEN (rsi, rdx are 0)
   push %rax # garbage to be overwritten by read in val
-	push %rsp # set rsi to previously pushed garbage
-	pop %rsi
+  push %rsp # set rsi to previously pushed garbage
+  pop %rsi
   push %rax # store fd
 writeloop:
   pop %rdi # read fd from stack & restore it
@@ -24,7 +24,7 @@ writeloop:
   cmp %edx, %eax # Check if we read 1
   jne afterwriteloop
   xorl %edi, %edi # rdi = 0 (STDOUT)
-  #incl %eax # eax = edx = 1 = SYS_WRITE
+  # eax = edx = 1 = SYS_WRITE
   syscall
   jmp writeloop
 afterwriteloop:
