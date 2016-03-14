@@ -3,5 +3,4 @@
 _start:
   push $60
   pop %rax
-  xor %edi, %edi
   syscall

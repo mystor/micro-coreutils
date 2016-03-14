@@ -3,6 +3,5 @@
 _start:
   push $60
   pop %rax
-  push $1
-  pop %rdi
+  inc %edi
   syscall

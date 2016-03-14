@@ -20,8 +20,8 @@ and as implemented here, in bytes.
 +-------+-----+-------+
 | cat   | 51K |  167  |
 | echo  | 31K |  167  |
-| false | 27K |  128  |
-| true  | 27K |  127  |
+| false | 27K |  127  |
+| true  | 27K |  125  |
 | yes   | 27K |  158  |
 +-------+-----+-------+
 
