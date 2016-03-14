@@ -1,5 +1,5 @@
 .PHONY: all
-all: yes echo cat
+all: yes echo cat true false
 
 yes: micro yes.S
 	as -o yes.o yes.S
@@ -19,6 +19,18 @@ cat: micro cat.S
 	./micro dbg-cat cat
 	chmod +x cat
 
+true: micro true.S
+	as -o true.o true.S
+	ld -o dbg-true true.o
+	./micro dbg-true true
+	chmod +x true
+
+false: micro false.S
+	as -o false.o false.S
+	ld -o dbg-false false.o
+	./micro dbg-false false
+	chmod +x false
+
 micro: micro.c
 	gcc -o micro micro.c
 
@@ -30,4 +42,5 @@ clean:
 	rm echo
 	rm yes
 	rm cat
-
+	rm true
+	rm false

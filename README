@@ -1,7 +1,7 @@
-These are minimal implementations of the unix utilities `yes`, `cat` and `echo`,
-written in x86-64 assembly for linux. The goal was to create an implementation
-which would consume the smallest number of bytes possible as a complete ELF
-executable.
+These are minimal implementations of the unix utilities `yes`, `cat`, `echo`,
+`true` and `false`, written in x86-64 assembly for linux. The goal was to
+create an implementation which would consume the smallest number of bytes
+possible as a complete ELF executable.
 
 The micro program is a sloppily created program which will remove the section
 headers from the program in order to save on the space which they would have
@@ -15,13 +15,15 @@ already installed on your machine.
 The following are the current sizes of the programs as provided by the systems
 and as implemented here, in bytes.
 
-+------+-----+-------+
-| prog | sys | micro |
-+------+-----+-------+
-| echo | 31K |  167  |
-| cat  | 51K |  167  |
-| yes  | 27K |  158  |
-+------+-----+-------+
++-------+-----+-------+
+| prog  | sys | micro |
++-------+-----+-------+
+| cat   | 51K |  167  |
+| echo  | 31K |  167  |
+| false | 27K |  127  |
+| true  | 27K |  125  |
+| yes   | 27K |  158  |
++-------+-----+-------+
 
 NOTE: These programs are not identical to the programs provided by the system,
 especially in their error handling/reporting capabilities. However, they do
